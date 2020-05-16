@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'tabInfo.dart';
+import 'tabBar.dart';
+import 'tabRest.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  set();
+  runApp(MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -11,9 +18,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Home(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
+
 
 class Home extends StatefulWidget {
   @override
@@ -23,17 +32,21 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _currentIndex = 0;
-  String nomezin = 'Aperfeiçoados Bar e Restaurante';
+
+  final tabs = [
+    tabRest(),
+    tabBar(),
+    TabInfo()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(nomezin),
+        title: Text('Aperfeiçoados'),
         backgroundColor: Colors.purple,
         centerTitle: true,
       ),
-      body: Container(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
 
@@ -58,16 +71,27 @@ class _HomeState extends State<Home> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
-            if(index == 0){
-              nomezin = 'Restaurante';
-            } else if(index == 1){
-              nomezin = 'Bar';
-            } else if(index == 2){
-              nomezin = 'Informações';
-            }
           });
         },
       ),
+      body: tabs[_currentIndex],
     );
   }
 }
+
+/*
+if(index == 0){
+nomezin = 'Restaurante';
+} else if(index == 1){
+nomezin = 'Bar';
+} else if(index == 2){
+nomezin = 'Informações';
+
+}
+
+Center(child: Text('Restaurante'),),
+    Center(child: Text('Bar'),),
+    Center(child: Text('Informações'),)
+
+
+*/
